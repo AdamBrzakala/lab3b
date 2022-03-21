@@ -21,6 +21,43 @@
             );
             area.draw();
         }
+
+        function drawCircle(area) {
+            area.add(
+                new Konva.Circle({
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    radius: 40,
+                    fill: Konva.Util.getRandomColor(),
+                    draggable: true,
+                }
+                )
+            );
+            area.draw();
+        }
+
+        function drawTriangle(area) {
+            area.add(
+                new Konva.RegularPolygon({
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    sides: 3,
+                    radius: 40,
+                    fill: Konva.Util.getRandomColor(),
+                    draggable: true,
+                })
+            );
+            area.draw();
+        }
+
+        function haveIntersection(rectangle, other) {
+            return (
+                other.x < rectangle.x + rectangle.width &&
+                rectangle.x < other.x + other.width &&
+                other.y < rectangle.y + rectangle.height &&
+                rectangle.y < other.y + other.height
+            );
+        }
     </script>
 </head>
 
@@ -30,7 +67,9 @@
             <div id="drawable"></div>
         </div>
         <div class="generation_container">
-            <button id="button" type="button" class="generate_btn">Generuj klocek</button>
+            <button id="button_rect" type="button" class="generate_btn">Generuj kwadrat</button>
+            <button id="button_circle" type="button" class="generate_btn">Generuj koło</button>
+            <button id="button_triangle" type="button" class="generate_btn">Generuj trójkąt</button>
         </div>
     </div>
     <script>
@@ -43,7 +82,26 @@
 
         var layer = new Konva.Layer();
         stage.add(layer);
-        document.getElementById('button').addEventListener('click', () => drawRect(layer));
+
+        document.getElementById('button_rect').addEventListener('click', () => drawRect(layer));
+        document.getElementById('button_circle').addEventListener('click', () => drawCircle(layer));
+        document.getElementById('button_triangle').addEventListener('click', () => drawTriangle(layer));
+
+        layer.on('dragmove', function (e) {
+            var target = e.target;
+            var targetRect = e.target.getClientRect();
+
+            layer.children.forEach(function (group) {
+                var group_rect = group.getClientRect();
+                if (group === target) {
+                    return;
+                }
+                if (haveIntersection(group_rect, targetRect)) {
+                    target.x(group_rect.x + group_rect.width + targetRect.width/2);
+                    target.y(group_rect.y + group_rect.height + targetRect.height/2);
+                }
+            });  
+        });
     </script>
 </body>
 

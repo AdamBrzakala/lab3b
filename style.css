@@ -6,13 +6,11 @@
 }
 
 .platform {
-    background-color: red;
     width: 100%;
     height: 80%;
 }
 
 .generation_container {
-    background-color: green;
     width: 100%;
     height: 20%;
 }
