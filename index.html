@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/konva@7.2.5/konva.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Lab03</title>
+
+    <script>
+        function drawRect(area) {
+            area.add(
+                new Konva.Rect({
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    width: 80,
+                    height: 80,
+                    fill: Konva.Util.getRandomColor(),
+                    draggable: true,
+                })
+            );
+            area.draw();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="drawable">
+        <div class="platform">
+            <div id="drawable"></div>
+        </div>
+        <div class="generation_container">
+            <button id="button" type="button" class="generate_btn">Generuj klocek</button>
+        </div>
+    </div>
+    <script>
+        var stage = new Konva.Stage({
+            container: 'drawable',
+            width: window.innerWidth * 1,
+            height: window.innerHeight * 0.8,
+            margin: 0,
+        });
+
+        var layer = new Konva.Layer();
+        stage.add(layer);
+        document.getElementById('button').addEventListener('click', () => drawRect(layer));
+    </script>
+</body>
+
+</html>

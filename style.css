@@ -1,0 +1,33 @@
+
+.drawable {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.platform {
+    background-color: red;
+    width: 100%;
+    height: 80%;
+}
+
+.generation_container {
+    background-color: green;
+    width: 100%;
+    height: 20%;
+}
+
+.generate_btn {
+    height: 100%;
+    width: 20%;
+    font-size: 20px;
+}
+
+.box {
+    border: 3px solid #666;
+    background-color: #ddd;
+    border-radius: .5em;
+    width: 50%;
+    padding: 10px;
+    cursor: move;
+  }
